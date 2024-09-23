@@ -24,7 +24,6 @@ public class RegistrationDto {
     @Size(min = 10 , max = 10 ,  message ="Should be 10 digits" )
     private String mobile;
 
-
     private String message;
 
     private int pageNo;

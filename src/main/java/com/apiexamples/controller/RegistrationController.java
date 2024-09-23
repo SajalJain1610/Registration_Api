@@ -25,7 +25,8 @@ public class RegistrationController {
     @PostMapping
     public ResponseEntity<?> addRegistration(
             @Valid @RequestBody RegistrationDto registrationDto,
-            BindingResult result) {
+            BindingResult result
+    ) {
         if(result.hasErrors()){
             return new ResponseEntity<>(result.getFieldError().getDefaultMessage(),HttpStatus.OK);
         }

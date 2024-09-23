@@ -56,13 +56,15 @@ public class RegistrationServiceImpl implements RegistrationService {
 //    public List<RegistrationDto> getAllRegistrations(int pageNo, int pageSize, String sortBy, String sortDir) {
     public PaginationResponse getAllRegistrations(int pageNo, int pageSize, String sortBy, String sortDir) {
 //        List<Registration> registrations = registrationRepository.findAll();
-
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(Sort.Direction.ASC,sortBy) : Sort.by(Sort.Direction.DESC,sortBy);
+      // (Ternary Operator)-- condition ? a(if true):b(if false)
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(Sort.Direction.ASC,sortBy) : Sort.by(Sort.Direction.DESC,sortBy);
 
         Pageable pageable =PageRequest.of(pageNo,pageSize, sort);
         Page<Registration> all = registrationRepository.findAll(pageable);
         List<Registration> registrations = all.getContent();
-        List<RegistrationDto> registrationDtos = registrations.stream().map(r -> mapToDto(r)).collect(Collectors.toList());
+        List<RegistrationDto> registrationDtos = registrations.stream()
+                        .map(r -> mapToDto(r)).collect(Collectors.toList());
         System.out.println(all.getTotalPages());
         System.out.println(all.isLast());
         System.out.println(all.isFirst());
